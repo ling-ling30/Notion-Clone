@@ -42,7 +42,7 @@ export default function RootLayout({
             disableTransitionOnChange
             storageKey="JusRight-theme"
           >
-            <Toaster />
+            <Toaster position="bottom-center" />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>

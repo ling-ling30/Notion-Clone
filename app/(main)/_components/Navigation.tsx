@@ -1,13 +1,26 @@
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
+import {
+  ChevronsLeft,
+  MenuIcon,
+  PlusCircle,
+  Search,
+  Settings,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import UserItem from "./UserItem";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import Item from "./Item";
+import { toast } from "sonner";
+import DocumentList from "./DocumentList";
 
 const Navigation = () => {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
+
+  const create = useMutation(api.documents.create);
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -29,6 +42,8 @@ const Navigation = () => {
     }
   }, [pathname, isMobile]);
 
+  // Altering the Navbar's width
+
   const handleMouseDown = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
@@ -39,7 +54,6 @@ const Navigation = () => {
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
   };
-
   const handleMouseMove = (event: MouseEvent) => {
     if (!isResizingRef.current) return;
     let newWidth = event.clientX;
@@ -61,7 +75,6 @@ const Navigation = () => {
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseup", handleMouseUp);
   };
-
   const resetWidth = () => {
     if (sidebarRef.current && navbarRef.current) {
       setIsCollapsed(false);
@@ -76,7 +89,6 @@ const Navigation = () => {
       setTimeout(() => setIsResetting(false), 300);
     }
   };
-
   const collapse = () => {
     if (navbarRef.current && sidebarRef.current) {
       setIsCollapsed(true);
@@ -88,6 +100,17 @@ const Navigation = () => {
       setTimeout(() => setIsResetting(false), 300);
     }
   };
+
+  const handleCreate = () => {
+    const promise = create({ title: "Untitled" });
+
+    toast.promise(promise, {
+      loading: "Creating a new note...",
+      success: "New note created!",
+      error: "Failed to create a new note.",
+    });
+  };
+
   return (
     <>
       <aside
@@ -98,6 +121,7 @@ const Navigation = () => {
           isMobile && "w-0"
         )}
       >
+        {/* Collapse Button */}
         <div
           onClick={collapse}
           role="button"
@@ -108,18 +132,27 @@ const Navigation = () => {
         >
           <ChevronsLeft className=" h-6 w-6" />
         </div>
+
+        {/* MENU */}
         <div>
           <UserItem />
+          <Item label="Search" Icon={Search} isSearch onClick={() => {}} />
+          <Item label="Settings" Icon={Settings} onClick={() => {}} />
+          <Item onClick={handleCreate} label="New Page" Icon={PlusCircle} />
         </div>
         <div className="mt-4">
-          <p>Documents</p>
+          <DocumentList />
         </div>
+
+        {/* DIVIDER */}
         <div
           onMouseDown={handleMouseDown}
           onClick={resetWidth}
           className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0"
         />
       </aside>
+
+      {/* invisible navbar? */}
       <div
         ref={navbarRef}
         className={cn(
