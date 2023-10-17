@@ -2,9 +2,11 @@ import { cn } from "@/lib/utils";
 import {
   ChevronsLeft,
   MenuIcon,
+  Plus,
   PlusCircle,
   Search,
   Settings,
+  Trash,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
@@ -15,8 +17,15 @@ import { api } from "@/convex/_generated/api";
 import Item from "./Item";
 import { toast } from "sonner";
 import DocumentList from "./DocumentList";
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
+import { PopoverContent } from "@radix-ui/react-popover";
+import TrashBox from "./TrashBox";
+import { useSearch } from "../../../hooks/use-search";
+import { useSetting } from "@/hooks/use-setting";
 
 const Navigation = () => {
+  const setting = useSetting();
+  const search = useSearch();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -136,12 +145,26 @@ const Navigation = () => {
         {/* MENU */}
         <div>
           <UserItem />
-          <Item label="Search" Icon={Search} isSearch onClick={() => {}} />
-          <Item label="Settings" Icon={Settings} onClick={() => {}} />
+          <Item label="Search" Icon={Search} isSearch onClick={search.onOpen} />
+          <Item label="Settings" Icon={Settings} onClick={setting.onOpen} />
           <Item onClick={handleCreate} label="New Page" Icon={PlusCircle} />
         </div>
+
+        {/* Documents */}
         <div className="mt-4">
           <DocumentList />
+          <Item label="Add a page" onClick={handleCreate} Icon={Plus} />
+          <Popover>
+            <PopoverTrigger className="w-full mt-4">
+              <Item label="Trash" Icon={Trash} />
+            </PopoverTrigger>
+            <PopoverContent
+              className="p-0 w-72 border shadow-md dark:bg-neutral-800 bg-primary"
+              side={isMobile ? "bottom" : "right"}
+            >
+              <TrashBox />
+            </PopoverContent>
+          </Popover>
         </div>
 
         {/* DIVIDER */}
