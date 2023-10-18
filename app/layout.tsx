@@ -11,7 +11,7 @@ import { EdgeStoreProvider } from "@/lib/edgestore";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "JusRight",
+  title: "Juzzy",
   description: "The Faster Workspace for doing your work",
   icons: {
     icon: [
@@ -44,7 +44,7 @@ export default function RootLayout({
               defaultTheme="system"
               enableSystem
               disableTransitionOnChange
-              storageKey="JusRight-theme"
+              storageKey="juzzy-theme"
             >
               <Toaster position="bottom-center" />
               <ModalProvider />

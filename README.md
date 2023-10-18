@@ -34,17 +34,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+THIS PROJECT I LEARNED :
+
+- MAKING PROVIDER for layout
+- CUSTOM HOOKS with zustand for open modal mechanism
+-  integration Clerk/next.js for authentication 
+- Convex 
+Convex is a Backend Application Platform that keeps you focused on building your product. Convex Functions, Database, File Storage, Scheduling, and Search fit together cohesively, and are accessible from client libraries for your favorite environment. Everything in Convex is live and realtime.
+- ShadUI a powerful tailwind based component 
+- EdgeStore for uploading an Image which also provide cloud database or images/photo
+- handling disabled button when sending api request with use state
+- Handling hydration error with useEffect & useState Mounted isMounted , to prevent serversiderendering , in this case window object and modal can cause hydration
+- also some cool npm package like blocknote, rich text editor and emojiPicker which provide emoji
 
 Run Covex too with npx convex dev
 
-THIS PROJECT I LEARNED :
 
-- MAKING PROVIDER
-- CUSTOM HOOKS
-- Clerk/next.js
-- Convex
-- ShadUI
-- EdgeStore database integration
-- handling disabled button when sending api request
-- Handling hydration error with useEffect & useState Mounted isMounted , to prevent serversiderendering , in this case window object and modal can cause hydration
--
