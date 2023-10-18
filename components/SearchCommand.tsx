@@ -15,6 +15,7 @@ import {
   CommandList,
 } from "./ui/command";
 import { File } from "lucide-react";
+import Link from "next/link";
 
 export const SearchCommand = () => {
   const { user } = useUser();
@@ -49,26 +50,27 @@ export const SearchCommand = () => {
   }
   return (
     <CommandDialog open={isOpen} onOpenChange={onClose}>
-      <CommandInput placeholder={`Search ${user?.fullName}'s Juzzy`} />
+      <CommandInput placeholder={`Search ${user?.username}'s Juzzy`} />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Documents">
           {documents?.map((document) => {
             return (
-              <CommandItem
-                key={document._id}
-                value={`${document._id}=${document.title}`}
-                title={document.title}
-                onSelect={onSelect}
-              >
-                {document.icon ? (
-                  <p className="mr-2 text-[18px]">{document.icon}</p>
-                ) : (
-                  <File className="mr-2 h4 w-4" />
-                )}
+              <Link key={document._id} href={`/documents/${document._id}`}>
+                <CommandItem
+                  value={`${document._id}=${document.title}`}
+                  title={document.title}
+                  onSelect={onSelect}
+                >
+                  {document.icon ? (
+                    <p className="mr-2 text-[18px]">{document.icon}</p>
+                  ) : (
+                    <File className="mr-2 h4 w-4" />
+                  )}
 
-                <span>{document.title}</span>
-              </CommandItem>
+                  {document.title}
+                </CommandItem>
+              </Link>
             );
           })}
         </CommandGroup>

@@ -36,3 +36,15 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 Run Covex too with npx convex dev
+
+THIS PROJECT I LEARNED :
+
+- MAKING PROVIDER
+- CUSTOM HOOKS
+- Clerk/next.js
+- Convex
+- ShadUI
+- EdgeStore database integration
+- handling disabled button when sending api request
+- Handling hydration error with useEffect & useState Mounted isMounted , to prevent serversiderendering , in this case window object and modal can cause hydration
+-

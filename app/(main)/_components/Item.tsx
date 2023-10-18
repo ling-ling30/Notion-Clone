@@ -65,6 +65,8 @@ export default function Item({
       success: "Noted moved to trash!",
       error: "Failed to archive note.",
     });
+
+    router.push(`/documents`);
   };
 
   const onCreate = (event: React.MouseEvent) => {
@@ -75,7 +77,7 @@ export default function Item({
         if (!expanded) {
           onExpand?.();
         }
-        // router.push(`/documents/${documentsId}`)
+        router.push(`/documents/${documentsId}`);
 
         toast.promise(promise, {
           loading: "Creating a new note...",
@@ -89,7 +91,8 @@ export default function Item({
   const ChevronIcon = expanded ? ChevronDown : ChevronRight;
 
   return (
-    <button
+    <div
+      role="button"
       onClick={onClick}
       title="activeBtn"
       style={{ paddingLeft: level ? `${level * 12 + 12}px` : "12px" }}
@@ -111,7 +114,7 @@ export default function Item({
       {documentIcon ? (
         <div className="shrink-0 mr-2 text-[18px]">{documentIcon}</div>
       ) : (
-        <Icon className="shrink-0 h-[18px] mr-2 text-muted-foreground" />
+        <Icon className="shrink-0 w-[18px] h-[18px] mr-2 text-muted-foreground" />
       )}
       <span className=" truncate">{label}</span>
 
@@ -163,7 +166,7 @@ export default function Item({
           </div>
         </div>
       )}
-    </button>
+    </div>
   );
 }
 
