@@ -14,9 +14,11 @@ type Props = {
 };
 
 const Page = ({ params }: Props) => {
-  const Editor = dynamic(() => import("@/app/(main)/_components/Editor"), {
-    ssr: false,
-  });
+  const Editor = useMemo(
+    () =>
+      dynamic(() => import("@/app/(main)/_components/Editor"), { ssr: false }),
+    []
+  );
 
   const document = useQuery(api.documents.getById, {
     documentId: params.documentId,
